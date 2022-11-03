@@ -3,6 +3,8 @@ const express = require("express");
 const path = require('path');
 const db = require("./src/database/conexao")
 
+const PORT = process.env.PORT ?? 3000
+
 const app = express();
 
 app.use('/public', express.static(path.resolve("./src/public")))
@@ -13,7 +15,7 @@ app.use(express.urlencoded({
 
 }))
 
-app.listen(3000,() => {
+app.listen(PORT,() => {
 
    console.log("Servidor rodando na porta 3000");
 
