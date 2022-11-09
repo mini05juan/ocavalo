@@ -3,9 +3,11 @@ const express = require("express");
 const path = require('path');
 const db = require("./src/database/conexao")
 
-const PORT = process.env.PORT ?? 3000
+const PORT = process.env.PORT || 3000
 
 const app = express();
+app.set("views", path.resolve("./src/views"))
+app.set("view engine", "ejs")
 
 app.use('/public', express.static(path.resolve("./src/public")))
 app.use(express.json())
@@ -51,15 +53,27 @@ app.post("/inserir", async(req, res)=>{
    [req.body.inputName, req.body.inputEmail, req.body.inputTelefone, 
        req.body.inputCPF, req.body.inputMsg
        ])
-   .then(resposta => console.log('ok'))
-   .catch(err => console.log('erro: ' + err));
+   .then(resposta => {
+      
+      
+      
+      console.log('ok')})
 
-   res.end();
+      res.redirect("/listar")
+   .catch(err => console.log('erro: ' + err));
 
 });
 
-app.get('/listar', (req, res) =>{
-   res.sendFile(path.resolve('./src/views/list.html'))
+app.get('/listar', async(req, res) =>{
+   await pool.query(`SELECT *
+	FROM cadastrar order by id asc`)
+   .then((resultado) => {
+   
+      const usuarios = resultado.rows
+
+      res.render("list" , {usuarios})
+
+   })
 })
 
 
@@ -82,6 +96,43 @@ app.get('/api/listar',async(req,res) =>{
 
    })
     
+})
+
+app.get("/deletar/:id" , async(req,res) =>{
+
+   const {id} = req.params
+
+    await pool.query(`DELETE FROM cadastrar WHERE ID = ${id}`)
+
+    res.redirect("/listar")
+})
+
+app.post("/editar/:id" , async(req,res) =>{
+
+   const {id} = req.params
+   const {inputName, inputEmail, inputTelefone, inputCPF, inputMsg} = req.body
+
+    await pool.query(`UPDATE cadastrar
+    SET nome= '${inputName}', email= '${inputEmail}', telefone= '${inputTelefone}', cpf= '${inputCPF}', mensagem='${inputMsg}'
+    WHERE id = ${id};`)
+
+    res.redirect("/listar")
+})
+
+app.get("/edit/:id", async(req,res) =>{
+   const {id} = req.params
+   await pool.query(`SELECT * FROM CADASTRAR WHERE ID = ${id}`)
+
+   .then(resultado => {
+
+       const usuario = resultado.rows[0]
+
+       res.render("edit.ejs" , {usuario})
+
+
+   })
+   
+
 })
 
 
