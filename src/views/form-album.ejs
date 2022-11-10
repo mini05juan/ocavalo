@@ -1,0 +1,36 @@
+
+      <form class="row g-3" method="POST" action="/inserir">
+        <div class="msg"></div>
+        <div class="col-md-6">
+          
+          <label for="inputName" class="form-label">Nome</label>
+          <input type="text" class="form-control" id="inputName" name="inputName">
+          <span id="msgError1" class="Preencha o campo nome!"></span>
+        </div>
+        <div class="col-md-6">
+          <label for="inputEmail" class="form-label">Email</label>
+          <input type="email" class="form-control" id="inputEmail" name="inputEmail">
+          <span id="msgError2" class="Preencha o campo email"></span>
+        </div>        
+        <div class="col-12">
+          <label for="inputTelefone" class="form-label">Telefone</label>
+          <input type="text" class="form-control" id="inputTelefone" placeholder="55 67 99143-3433" name="inputTelefone">
+          <span id="msgError3" class="Preencha o telefone"></span>
+        </div>
+        <div class="col-12">
+          <label for="inputCPF" class="form-label">CPF</label>
+          <input type="text" class="form-control" id="inputCPF" placeholder="079.434.134-00" name="inputCPF">
+          <span id="msgError4" class="Preencha o campo CPF"></span>
+        </div>
+        
+        <div class="col-md-2">
+          <label for="inputMsg" class="form-label">Mensagem</label>
+          <input type="text" class="form-control" id="inputMsg" name="inputMsg">
+          <span id="msgError5" class="Preencha a mensagem" ></span>
+        </div>
+        
+        <div class="col-12">
+          <button type="submit" id="submit-button" class="btn btn-primary">Cadastrar</button>
+        </div>
+      </form>
+   

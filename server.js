@@ -3,9 +3,12 @@ const express = require("express");
 const path = require('path');
 const db = require("./src/database/conexao")
 
+const ejs = require("express-ejs-layouts")
+
 const PORT = process.env.PORT || 3000
 
 const app = express();
+app.use(ejs)
 app.set("views", path.resolve("./src/views"))
 app.set("view engine", "ejs")
 
@@ -23,12 +26,12 @@ app.listen(PORT,() => {
 
 })
 app.get('/', (req,res) => {
-   res.sendFile(path.resolve('./src/views/index.html'))
+   res.render("index")
 })
 
 app.get('/cadastrar', (req,res) => {
    console.log(path.resolve('./src/views/form-album.html'));
-   res.sendFile(path.resolve('./src/views/form-album.html'))
+   res.render("form-album")
 })
 
 app.post("/inserir", async(req, res)=>{
@@ -54,8 +57,6 @@ app.post("/inserir", async(req, res)=>{
        req.body.inputCPF, req.body.inputMsg
        ])
    .then(resposta => {
-      
-      
       
       console.log('ok')})
 
