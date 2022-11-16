@@ -123,3 +123,8 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+.card-group img{
+  height: 300px;
+  width: 200px;
+}
+

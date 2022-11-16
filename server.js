@@ -33,6 +33,10 @@ app.get('/cadastrar', (req,res) => {
    console.log(path.resolve('./src/views/form-album.html'));
    res.render("form-album")
 })
+app.get('/sobre', (req,res) => {
+   console.log(path.resolve('./src/views/sobreNos.ejs'));
+   res.render("sobreNos")
+})
 
 app.post("/inserir", async(req, res)=>{
 
